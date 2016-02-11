@@ -12,8 +12,8 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @IBOutlet weak var iTableView: UITableView!
     
-    var instagramData:NSDictionary?
-    
+    var instagramData:NSArray?
+    var instagramDict:NSDictionary?
     
     let data = ["New York, NY", "Fort Worth, TX"]
     
@@ -33,7 +33,16 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 if let data = dataOrNil {
                     if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                         data, options:[]) as? NSDictionary {
-                            self.instagramData = responseDictionary
+
+                            self.instagramData = responseDictionary["data"] as? NSArray
+                            self.instagramDict = responseDictionary["data"] as? NSDictionary
+
+//                            print(self.instagramData)
+                            
+//                            for test in self.instagramData! {
+//                                print(test)
+//                                print("----------------------------")
+//                            }
                             
                             self.iTableView.reloadData()
 //                            print(self.instagramData["data"])
@@ -48,26 +57,24 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         let cell = tableView.dequeueReusableCellWithIdentifier("com.codepath.DemoPrototypeCell", forIndexPath: indexPath) as! iTableViewCell
         
-//        let oneData = self.instagramData[indexPath.row]?
-//        print("ONE", oneData)
-        
-//        let url = oneData["images"]?["low_resolution"]?["url"]?
-        
-//        cell.cityLable.text = url
-        
-        let cityState = data[indexPath.row].componentsSeparatedByString(", ")
-        cell.cityLabel.text = cityState.first
-        cell.stateLabel.text = cityState.last
-        
-        let imageURL = NSURL(string:"https://scontent.cdninstagram.com/t51.2885-15/s320x320/e35/12558253_1541170002878318_987227936_n.jpg?ig_cache_key=MTE4MjM1MTExMjEyMTEyNjE5Nw%3D%3D.2")
-        
-        cell.instaImage.setImageWithURL(imageURL!)
+        if (self.instagramData != nil){
+            
+            let oneData = self.instagramData![indexPath.row]
+            let images = oneData["images"]!
+            let lowres = images?["low_resolution"]!
+            let url = lowres?["url"] as? String
+            
+            let imageURL = NSURL(string:url!)
+            cell.instaImage.setImageWithURL(imageURL!)
+            
+        }
         
         return cell
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        return 10
+//        return self.instagramData!.count
     }
 
     override func viewDidLoad() {
