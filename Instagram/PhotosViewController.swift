@@ -13,9 +13,6 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var iTableView: UITableView!
     
     var instagramData:NSArray?
-    var instagramDict:NSDictionary?
-    
-    let data = ["New York, NY", "Fort Worth, TX"]
     
     func getInstagramData() {
         let clientId = "e05c462ebd86446ea48a5af73769b602"
@@ -35,18 +32,7 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
                         data, options:[]) as? NSDictionary {
 
                             self.instagramData = responseDictionary["data"] as? NSArray
-                            self.instagramDict = responseDictionary["data"] as? NSDictionary
-
-//                            print(self.instagramData)
-                            
-//                            for test in self.instagramData! {
-//                                print(test)
-//                                print("----------------------------")
-//                            }
-                            
                             self.iTableView.reloadData()
-//                            print(self.instagramData["data"])
-
                     }
                 }
         });
@@ -57,15 +43,27 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         let cell = tableView.dequeueReusableCellWithIdentifier("com.codepath.DemoPrototypeCell", forIndexPath: indexPath) as! iTableViewCell
         
-        if (self.instagramData != nil){
+        cell.profileImage.layer.cornerRadius = cell.profileImage.frame.size.width / 2
+        cell.profileImage.clipsToBounds = true
+        cell.profileImage.layer.borderColor = UIColor.lightGrayColor().CGColor
+        cell.profileImage.layer.borderWidth = 2
+        
+        if (self.instagramData != nil) {
             
             let oneData = self.instagramData![indexPath.row]
             let images = oneData["images"]!
             let lowres = images?["low_resolution"]!
             let url = lowres?["url"] as? String
-            
             let imageURL = NSURL(string:url!)
+            
+            let user = oneData["user"]!
+            let name = user?["username"] as? String
+            let profilepic = user?["profile_picture"] as? String
+            let profileImageURL = NSURL(string:profilepic!)
+            
             cell.instaImage.setImageWithURL(imageURL!)
+            cell.profileImage.setImageWithURL(profileImageURL!)
+            cell.username.text = name
             
         }
         
@@ -73,10 +71,18 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
-//        return self.instagramData!.count
+        let data = self.instagramData
+        if (data != nil) {
+            return data!.count
+        } else {
+            return 0
+        }
     }
-
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -85,12 +91,26 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
         iTableView.dataSource = self
         iTableView.delegate = self
         
-        self.iTableView.rowHeight = 320
+        self.iTableView.rowHeight = 400
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if (segue.identifier == "detailSegue") {
+            let detailView = segue.destinationViewController as! PhotoDetailsViewController
+            let indexPath = iTableView.indexPathForCell(sender as! UITableViewCell)
+            let rowNum = indexPath?.row
+            let oneData = self.instagramData![rowNum!]
+            
+            detailView.detailData = oneData as? NSDictionary
+            
+        }
+        
     }
 
 

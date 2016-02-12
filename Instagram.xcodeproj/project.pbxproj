@@ -13,6 +13,7 @@
 		5A7CFB2C1C6C5A330081B629 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A7CFB2B1C6C5A330081B629 /* Assets.xcassets */; };
 		5A7CFB2F1C6C5A330081B629 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A7CFB2D1C6C5A330081B629 /* LaunchScreen.storyboard */; };
 		5A7CFB371C6C6FF80081B629 /* iTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7CFB361C6C6FF80081B629 /* iTableViewCell.swift */; };
+		5A7CFB391C6DD1100081B629 /* PhotoDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7CFB381C6DD1100081B629 /* PhotoDetailsViewController.swift */; };
 		CC459A7FD5DAAA7F449262BF /* Pods_Instagram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E7E69EAD0861FD75E3E3639 /* Pods_Instagram.framework */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +29,7 @@
 		5A7CFB2E1C6C5A330081B629 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5A7CFB301C6C5A330081B629 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A7CFB361C6C6FF80081B629 /* iTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iTableViewCell.swift; sourceTree = "<group>"; };
+		5A7CFB381C6DD1100081B629 /* PhotoDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoDetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 				5A7CFB241C6C5A330081B629 /* AppDelegate.swift */,
 				5A7CFB261C6C5A330081B629 /* PhotosViewController.swift */,
 				5A7CFB281C6C5A330081B629 /* Main.storyboard */,
+				5A7CFB381C6DD1100081B629 /* PhotoDetailsViewController.swift */,
 				5A7CFB361C6C6FF80081B629 /* iTableViewCell.swift */,
 				5A7CFB2B1C6C5A330081B629 /* Assets.xcassets */,
 				5A7CFB2D1C6C5A330081B629 /* LaunchScreen.storyboard */,
@@ -214,6 +217,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A7CFB391C6DD1100081B629 /* PhotoDetailsViewController.swift in Sources */,
 				5A7CFB271C6C5A330081B629 /* PhotosViewController.swift in Sources */,
 				5A7CFB251C6C5A330081B629 /* AppDelegate.swift in Sources */,
 				5A7CFB371C6C6FF80081B629 /* iTableViewCell.swift in Sources */,
