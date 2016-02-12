@@ -84,7 +84,17 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
         } else {
             return 0
         }
+//        return 1
     }
+    
+//    func tableView(tableView: UITableView, numberOfSectionsInTableView section: Int) -> Int {
+//        let data = self.instagramData
+//        if (data != nil) {
+//            return data!.count
+//        } else {
+//            return 0
+//        }
+//    }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)

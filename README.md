@@ -11,8 +11,8 @@ Time spent: 6 hours spent in total
 - [x] Milestone 3: Build the Main Photo Feed
 - [x] Milestone 4: Build the Details Screen
 - [x] Milestone 5: Add Pull to Refresh
-- [x] Bonus 1: Add User Profile Image and Names
-- [ ] Bonus 2: Infinite Scrolling
+- [ ] Bonus 1: Add User Profile Image and Names - instructions completely unclear
+- [ ] Bonus 2: Infinite Scrolling - no api to get more
 - [ ] Bonus 3: Zoomable Photo View
 
 The following **additional** features are implemented:
@@ -24,6 +24,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
+![instagram demo](instagram.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
