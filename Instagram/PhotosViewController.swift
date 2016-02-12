@@ -16,6 +16,8 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     let imageHeight = 320
     let headerHeight = 60
+    let padBottom = 20
+    let refreshControl = UIRefreshControl()
     
     func getInstagramData() {
         let clientId = "e05c462ebd86446ea48a5af73769b602"
@@ -36,6 +38,7 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
                             self.instagramData = responseDictionary["data"] as? NSArray
                             self.iTableView.reloadData()
+                            self.refreshControl.endRefreshing()
                     }
                 }
         });
@@ -64,6 +67,7 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let profilepic = user?["profile_picture"] as? String
             let profileImageURL = NSURL(string:profilepic!)
             
+            
             cell.instaImage.setImageWithURL(imageURL!)
             cell.profileImage.setImageWithURL(profileImageURL!)
             cell.username.text = name
@@ -86,6 +90,10 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
+    func refreshControlAction(refreshControl: UIRefreshControl) {
+        self.getInstagramData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -94,7 +102,10 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
         iTableView.dataSource = self
         iTableView.delegate = self
         
-        self.iTableView.rowHeight = CGFloat(imageHeight + headerHeight)
+        self.iTableView.rowHeight = CGFloat(imageHeight + headerHeight + padBottom)
+        
+        self.refreshControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
+        iTableView.insertSubview(refreshControl, atIndex: 0)
     }
 
     override func didReceiveMemoryWarning() {

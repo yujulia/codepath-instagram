@@ -11,18 +11,24 @@ import UIKit
 class PhotoDetailsViewController: UIViewController {
     
     @IBOutlet weak var detailImage: UIImageView!
+    @IBOutlet weak var caption: UILabel!
     
     var detailData:NSDictionary?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let images = detailData?["images"]
-        let lowres = images?["low_resolution"]!
+        let oneData = detailData!
+        let images = oneData["images"]!
+        let lowres = images["low_resolution"]!
         let url = lowres?["url"] as? String
         let imageURL = NSURL(string:url!)
         
+        let dataCaption = detailData?["caption"]
+        let dataText = dataCaption!["text"]
+        
         detailImage.setImageWithURL(imageURL!)
+        caption.text = dataText as? String
 
     }
 

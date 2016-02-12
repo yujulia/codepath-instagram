@@ -10,7 +10,7 @@ Time spent: 6 hours spent in total
 - [x] Milestone 2: Hookup the Instagram API
 - [x] Milestone 3: Build the Main Photo Feed
 - [x] Milestone 4: Build the Details Screen
-- [ ] Milestone 5: Add Pull to Refresh
+- [x] Milestone 5: Add Pull to Refresh
 - [x] Bonus 1: Add User Profile Image and Names
 - [ ] Bonus 2: Infinite Scrolling
 - [ ] Bonus 3: Zoomable Photo View
