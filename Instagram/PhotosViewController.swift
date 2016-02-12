@@ -14,6 +14,9 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var instagramData:NSArray?
     
+    let imageHeight = 320
+    let headerHeight = 60
+    
     func getInstagramData() {
         let clientId = "e05c462ebd86446ea48a5af73769b602"
         let url = NSURL(string:"https://api.instagram.com/v1/media/popular?client_id=\(clientId)")
@@ -91,7 +94,7 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
         iTableView.dataSource = self
         iTableView.delegate = self
         
-        self.iTableView.rowHeight = 400
+        self.iTableView.rowHeight = CGFloat(imageHeight + headerHeight)
     }
 
     override func didReceiveMemoryWarning() {
