@@ -13,11 +13,13 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var iTableView: UITableView!
     
     var instagramData:NSArray?
+    var total = 0
     
     let imageHeight = 320
     let headerHeight = 60
     let padBottom = 20
     let refreshControl = UIRefreshControl()
+    
     
     func getInstagramData() {
         let clientId = "e05c462ebd86446ea48a5af73769b602"
@@ -37,6 +39,7 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
                         data, options:[]) as? NSDictionary {
 
                             self.instagramData = responseDictionary["data"] as? NSArray
+                            self.total = self.instagramData!.count
                             self.iTableView.reloadData()
                             self.refreshControl.endRefreshing()
                     }
@@ -44,57 +47,67 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
         });
         task.resume()
     }
-    
+
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("com.codepath.DemoPrototypeCell", forIndexPath: indexPath) as! iTableViewCell
         
-        cell.profileImage.layer.cornerRadius = cell.profileImage.frame.size.width / 2
-        cell.profileImage.clipsToBounds = true
-        cell.profileImage.layer.borderColor = UIColor.lightGrayColor().CGColor
-        cell.profileImage.layer.borderWidth = 2
-        
         if (self.instagramData != nil) {
-            
-            let oneData = self.instagramData![indexPath.row]
+            let oneData = self.instagramData![indexPath.section]
             let images = oneData["images"]!
             let lowres = images?["low_resolution"]!
             let url = lowres?["url"] as? String
             let imageURL = NSURL(string:url!)
-            
-            let user = oneData["user"]!
-            let name = user?["username"] as? String
-            let profilepic = user?["profile_picture"] as? String
-            let profileImageURL = NSURL(string:profilepic!)
-            
-            
+    
             cell.instaImage.setImageWithURL(imageURL!)
-            cell.profileImage.setImageWithURL(profileImageURL!)
-            cell.username.text = name
-            
         }
         
         return cell
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let data = self.instagramData
-        if (data != nil) {
-            return data!.count
-        } else {
-            return 0
-        }
-//        return 1
+        return 1
     }
     
-//    func tableView(tableView: UITableView, numberOfSectionsInTableView section: Int) -> Int {
-//        let data = self.instagramData
-//        if (data != nil) {
-//            return data!.count
-//        } else {
-//            return 0
-//        }
-//    }
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return total
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        headerView.backgroundColor = UIColor(white: 1, alpha: 0.9)
+        
+        let profileView = UIImageView(frame: CGRect(x: 10, y: 10, width: 30, height: 30))
+        profileView.clipsToBounds = true
+        profileView.layer.cornerRadius = 15;
+        profileView.layer.borderColor = UIColor(white: 0.7, alpha: 0.8).CGColor
+        profileView.layer.borderWidth = 1;
+        
+        let usernameLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 280, height: 30))
+        usernameLabel.frame.origin.x = 50
+        usernameLabel.frame.origin.y = 8
+        usernameLabel.font = UIFont(name: "HelveticaNeue-Light", size: 14.0)
+        usernameLabel.textColor = UIColor.grayColor()
+        
+        let oneData = self.instagramData![section]
+        let user = oneData["user"]!
+        let name = user?["username"] as? String
+        let profilepic = user?["profile_picture"] as? String
+        let profileImageURL = NSURL(string:profilepic!)
+
+        profileView.setImageWithURL(profileImageURL!)
+        usernameLabel.text = name
+        
+        headerView.addSubview(profileView)
+        headerView.addSubview(usernameLabel)
+        
+        return headerView
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50.0
+    }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
@@ -128,7 +141,7 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if (segue.identifier == "detailSegue") {
             let detailView = segue.destinationViewController as! PhotoDetailsViewController
             let indexPath = iTableView.indexPathForCell(sender as! UITableViewCell)
-            let rowNum = indexPath?.row
+            let rowNum = indexPath?.section
             let oneData = self.instagramData![rowNum!]
             
             detailView.detailData = oneData as? NSDictionary

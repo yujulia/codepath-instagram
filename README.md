@@ -11,7 +11,7 @@ Time spent: 9 hours spent in total
 - [x] Milestone 3: Build the Main Photo Feed
 - [x] Milestone 4: Build the Details Screen
 - [x] Milestone 5: Add Pull to Refresh
-- [ ] Bonus 1: Add User Profile Image and Names - instructions completely unclear
+- [x] Bonus 1: Add User Profile Image and Names - instructions completely unclear
 - [ ] Bonus 2: Infinite Scrolling - no api to get more
 - [ ] Bonus 3: Zoomable Photo View
 
@@ -31,6 +31,10 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 ## Notes
 
 Describe any challenges encountered while building the app.
+
+* you need to use `indexpath.section` not `indexpath.row`, not explained in tutorial
+* `func numberOfSectionsInTableView(tableView: UITableView) -> Int {` has to be used instead of `func tableview` blah blah... not explained in tutorial, completely random
+
 
 ## License
 
