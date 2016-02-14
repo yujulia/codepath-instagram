@@ -35,9 +35,7 @@ class ZoomViewController: UIViewController, UIScrollViewDelegate {
         self.dismissViewControllerAnimated(true, completion: {});
     }
     
-    func viewForZoomingInScrollView(scrollPanel: UIScrollView) -> UIView? {
+    func viewForZoomingInScrollView(scrollPanel: UIScrollView!) -> UIView! {
         return zoomImage
     }
-
-
 }
