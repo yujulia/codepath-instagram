@@ -34,7 +34,7 @@ Describe any challenges encountered while building the app.
 
 * you need to use `indexpath.section` not `indexpath.row`, not explained in tutorial
 * `func numberOfSectionsInTableView(tableView: UITableView) -> Int {` has to be used instead of `func tableview` blah blah... not explained in tutorial, completely random
-
+* all the examples for arrays are not NSarrays, none of that is helpful
 
 ## License
 

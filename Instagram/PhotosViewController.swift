@@ -12,14 +12,33 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @IBOutlet weak var iTableView: UITableView!
     
-    var instagramData:NSArray?
+    var instagramData:NSMutableArray?
     var total = 0
+    var loading = false
     
     let imageHeight = 320
     let headerHeight = 60
     let padBottom = 20
     let refreshControl = UIRefreshControl()
+    let tableFooterView: UIView = UIView(frame: CGRectMake(0, 0, 320, 50))
+    let loadingView: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
     
+    func stopLoading(){
+        self.loading = false
+        loadingView.stopAnimating()
+        self.iTableView.tableFooterView?.hidden = true
+    }
+    
+    func loadMore() {
+        if (self.loading) {
+            return
+        }
+        loadingView.startAnimating()
+        self.iTableView.tableFooterView?.hidden = false
+        
+        self.loading = true
+        getInstagramData()
+    }
     
     func getInstagramData() {
         let clientId = "e05c462ebd86446ea48a5af73769b602"
@@ -37,11 +56,21 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 if let data = dataOrNil {
                     if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                         data, options:[]) as? NSDictionary {
+                            
+                            let moreData = responseDictionary["data"] as? NSMutableArray
 
-                            self.instagramData = responseDictionary["data"] as? NSArray
+                            if (self.instagramData == nil) {
+                                self.instagramData = moreData
+                            } else {
+                                // ADD MORE DATA HOW
+//                                self.instagramData?.addObjectsFromArray(moreData)
+                            }
+                            
                             self.total = self.instagramData!.count
                             self.iTableView.reloadData()
                             self.refreshControl.endRefreshing()
+                            
+                            self.stopLoading()
                     }
                 }
         });
@@ -60,6 +89,13 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let imageURL = NSURL(string:url!)
     
             cell.instaImage.setImageWithURL(imageURL!)
+        }
+        
+
+        let max = self.total - 1
+        if (max == indexPath.section) {
+            print("load more")
+            self.loadMore()
         }
         
         return cell
@@ -129,6 +165,10 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         self.refreshControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
         iTableView.insertSubview(refreshControl, atIndex: 0)
+        
+        loadingView.center = tableFooterView.center
+        tableFooterView.addSubview(loadingView)
+        self.iTableView.tableFooterView = tableFooterView
     }
 
     override func didReceiveMemoryWarning() {
