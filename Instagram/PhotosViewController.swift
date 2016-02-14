@@ -12,7 +12,7 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @IBOutlet weak var iTableView: UITableView!
     
-    var instagramData:NSMutableArray?
+    var instagramData = NSMutableArray()
     var total = 0
     var loading = false
     
@@ -57,20 +57,17 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                         data, options:[]) as? NSDictionary {
                             
-                            let moreData = responseDictionary["data"] as? NSMutableArray
-
-                            if (self.instagramData == nil) {
-                                self.instagramData = moreData
-                            } else {
-                                // ADD MORE DATA HOW
-//                                self.instagramData?.addObjectsFromArray(moreData)
-                            }
-                            
-                            self.total = self.instagramData!.count
-                            self.iTableView.reloadData()
-                            self.refreshControl.endRefreshing()
-                            
-                            self.stopLoading()
+                        let moreData = responseDictionary["data"] as? NSMutableArray
+                        
+                        for data in moreData! {
+                            let newData = data as! NSDictionary
+                            self.instagramData.addObject(newData)
+                        }
+                        
+                        self.total = self.instagramData.count
+                        self.iTableView.reloadData()
+                        self.refreshControl.endRefreshing()
+                        self.stopLoading()
                     }
                 }
         });
@@ -80,21 +77,14 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("com.codepath.DemoPrototypeCell", forIndexPath: indexPath) as! iTableViewCell
-        
-        if (self.instagramData != nil) {
-            let oneData = self.instagramData![indexPath.section]
-            let images = oneData["images"]!
-            let lowres = images?["low_resolution"]!
-            let url = lowres?["url"] as? String
-            let imageURL = NSURL(string:url!)
-    
-            cell.instaImage.setImageWithURL(imageURL!)
-        }
-        
-
         let max = self.total - 1
+        let oneData = self.instagramData[indexPath.section]
+        let urlString = oneData.valueForKeyPath("images.low_resolution.url") as! String
+        let imageURL = NSURL(string:urlString)
+
+        cell.instaImage.setImageWithURL(imageURL!)
+        
         if (max == indexPath.section) {
-            print("load more")
             self.loadMore()
         }
         
@@ -126,14 +116,13 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
         usernameLabel.font = UIFont(name: "HelveticaNeue-Light", size: 14.0)
         usernameLabel.textColor = UIColor.grayColor()
         
-        let oneData = self.instagramData![section]
-        let user = oneData["user"]!
-        let name = user?["username"] as? String
-        let profilepic = user?["profile_picture"] as? String
-        let profileImageURL = NSURL(string:profilepic!)
+        let oneData = self.instagramData[section]
+        let username = oneData.valueForKeyPath("user.username") as! String
+        let profilepic = oneData.valueForKeyPath("user.profile_picture") as! String
+        let profileImageURL = NSURL(string:profilepic)
 
         profileView.setImageWithURL(profileImageURL!)
-        usernameLabel.text = name
+        usernameLabel.text = username
         
         headerView.addSubview(profileView)
         headerView.addSubview(usernameLabel)
@@ -173,23 +162,17 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
         if (segue.identifier == "detailSegue") {
             let detailView = segue.destinationViewController as! PhotoDetailsViewController
             let indexPath = iTableView.indexPathForCell(sender as! UITableViewCell)
             let rowNum = indexPath?.section
-            let oneData = self.instagramData![rowNum!]
+            let oneData = self.instagramData[rowNum!]
             
             detailView.detailData = oneData as? NSDictionary
-            
         }
-        
     }
-
-
 }
 

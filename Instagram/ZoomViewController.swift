@@ -22,8 +22,6 @@ class ZoomViewController: UIViewController, UIScrollViewDelegate {
         let imageURL = NSURL(string:urlString)
         zoomImage.setImageWithURL(imageURL!)
         scrollPanel.contentSize = zoomImage.image!.size
-
-        // Do any additional setup after loading the view.
         scrollPanel.delegate = self
     }
 
@@ -37,7 +35,7 @@ class ZoomViewController: UIViewController, UIScrollViewDelegate {
         self.dismissViewControllerAnimated(true, completion: {});
     }
     
-    func viewForZoomingInScrollView(scrollPanel: UIScrollView!) -> UIView! {
+    func viewForZoomingInScrollView(scrollPanel: UIScrollView) -> UIView? {
         return zoomImage
     }
 

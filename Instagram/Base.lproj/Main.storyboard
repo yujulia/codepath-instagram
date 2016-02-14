@@ -98,7 +98,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1028" y="299"/>
+            <point key="canvasLocation" x="1088" y="299"/>
         </scene>
         <!--Zoom View Controller-->
         <scene sceneID="7pv-CE-syQ">
@@ -139,7 +139,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zKb-NO-IeO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1394" y="298"/>
+            <point key="canvasLocation" x="1506" y="298"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="lx0-zb-hnj">
@@ -157,7 +157,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WcU-qd-69g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="130" y="299"/>
+            <point key="canvasLocation" x="243" y="298"/>
         </scene>
     </scenes>
     <color key="tintColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

@@ -2,7 +2,7 @@
 
 Instagram is an Instagram client.
 
-Time spent: 9 hours spent in total
+Time spent: 14 hours spent in total
 
 ## Milestones
 
@@ -11,7 +11,7 @@ Time spent: 9 hours spent in total
 - [x] Milestone 3: Build the Main Photo Feed
 - [x] Milestone 4: Build the Details Screen
 - [x] Milestone 5: Add Pull to Refresh
-- [x] Bonus 1: Add User Profile Image and Names - instructions completely unclear
+- [x] Bonus 1: Add User Profile Image and Names - instructions unclear
 - [ ] Bonus 2: Infinite Scrolling - no api to get more
 - [x] Bonus 3: Zoomable Photo View
 
@@ -34,7 +34,8 @@ Describe any challenges encountered while building the app.
 
 * you need to use `indexpath.section` not `indexpath.row`, not explained in tutorial
 * `func numberOfSectionsInTableView(tableView: UITableView) -> Int {` has to be used instead of `func tableview` blah blah... not explained in tutorial, completely random
-* all the examples for arrays are not NSarrays, none of that is helpful
+* all the examples for arrays are very confusing
+* `viewForZoomingInScrollView(scrollPanel: UIScrollView) -> UIView?` is correct, not the version in the tutorial
 
 ## License
 

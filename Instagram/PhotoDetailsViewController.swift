@@ -29,7 +29,6 @@ class PhotoDetailsViewController: UIViewController {
         
         detailImage.setImageWithURL(imageURL!)
         caption.text = dataText as? String
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,14 +36,10 @@ class PhotoDetailsViewController: UIViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
         if (segue.identifier == "zoomSegue") {
             let zoomView = segue.destinationViewController as! ZoomViewController
-          
             zoomView.detailData = detailData
-            
         }
-        
     }
     
     @IBAction func onTap(tapper: UITapGestureRecognizer) {
