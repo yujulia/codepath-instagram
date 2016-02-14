@@ -11,8 +11,8 @@ Time spent: 14 hours spent in total
 - [x] Milestone 3: Build the Main Photo Feed
 - [x] Milestone 4: Build the Details Screen
 - [x] Milestone 5: Add Pull to Refresh
-- [x] Bonus 1: Add User Profile Image and Names - instructions unclear
-- [x] Bonus 2: Infinite Scrolling - just loads more of the same data
+- [x] Bonus 1: Add User Profile Image and Names
+- [x] Bonus 2: Infinite Scrolling
 - [x] Bonus 3: Zoomable Photo View
 
 The following **additional** features are implemented:
