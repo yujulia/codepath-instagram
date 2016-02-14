@@ -13,7 +13,7 @@ Time spent: 9 hours spent in total
 - [x] Milestone 5: Add Pull to Refresh
 - [x] Bonus 1: Add User Profile Image and Names - instructions completely unclear
 - [ ] Bonus 2: Infinite Scrolling - no api to get more
-- [ ] Bonus 3: Zoomable Photo View
+- [x] Bonus 3: Zoomable Photo View
 
 The following **additional** features are implemented:
 
