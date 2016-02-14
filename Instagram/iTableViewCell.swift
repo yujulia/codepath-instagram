@@ -11,9 +11,7 @@ import AFNetworking
 
 class iTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var instaImage: UIImageView!
-    @IBOutlet weak var username: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
